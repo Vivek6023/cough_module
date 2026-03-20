@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NeuroSonic AI</title>
+  {% load static %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="logo">
+    <span class="logo-pulse" id="logoPulse"></span>
+    neurosonic
+  </div>
+  <div class="nav-links">
+    <a href="#" class="nav-link active">Dashboard</a>
+    <a href="#" class="nav-link">History</a>
+    <a href="#" class="nav-link">Settings</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-text">
+    <span class="hero-tag">Acoustic intelligence</span>
+    <h1>Your cough,<br><em>understood.</em></h1>
+    <p>NeuroSonic listens, analyses respiratory acoustics in real time and classifies each sound — no forms, no check-ins, no interruptions.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="startRecording()">🎤 Start Recording</button>
+      <a href="#dashboard" class="btn-ghost">See the dashboard</a>
+    </div>
+  </div>
+
+  <div class="hero-card">
+    <div class="hc-label">
+      <span class="hc-dot" id="hcDot"></span>
+      Current state
+    </div>
+    <div class="hc-state" id="hcState">Ready</div>
+    <div class="hc-bar-bg">
+      <div class="hc-bar-fill" id="hcBar" style="width:0%"></div>
+    </div>
+    <div class="hc-sub" id="hcSub">Waiting for input…</div>
+  </div>
+</section>
+
+<!-- ── DASHBOARD ── -->
+<main id="dashboard">
+  <h2 class="dash-title">Live dashboard</h2>
+
+  <!-- TOP ROW -->
+  <div class="top-grid">
+
+    <!-- Detection card -->
+    <div class="card">
+      <div class="card-label">Detection</div>
+
+      <div class="ring-wrap">
+        <div class="ring" id="ring">
+          <svg class="ring-svg" viewBox="0 0 140 140">
+            <circle class="ring-track"    cx="70" cy="70" r="60"/>
+            <circle class="ring-progress" cx="70" cy="70" r="60" id="ringProgress"/>
+          </svg>
+          <div class="ring-center">
+            <span class="ring-text" id="ringText">Idle</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="detect-sub" id="detectSub">Press record to begin<br>acoustic analysis.</p>
+
+      <div class="detect-btns">
+        <button class="btn-record" id="btnRecord" onclick="startRecording()">
+          <svg width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="currentColor"/></svg>
+          Record
+        </button>
+        <button class="btn-stop" id="btnStop" onclick="stopRecording()">
+          <svg width="10" height="10" viewBox="0 0 10 10"><rect width="10" height="10" rx="2" fill="currentColor"/></svg>
+          Stop &amp; Analyse
+        </button>
+      </div>
+    </div>
+
+    <!-- Right column -->
+    <div class="right-col">
+
+      <!-- Waveform -->
+      <div class="card waveform-card">
+        <div class="card-label">Audio input</div>
+        <div class="waveform" id="waveform"></div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="card">
+          <div class="card-label">Sessions today</div>
+          <div class="stat-num" id="statSessions">0</div>
+          <div class="stat-unit">recordings</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Last result</div>
+          <div class="stat-num stat-sm" id="statLast">—</div>
+          <div class="stat-unit" id="statLastConf">—</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Avg confidence</div>
+          <div class="stat-num" id="statAvg">—</div>
+          <div class="stat-unit">accuracy</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BOTTOM ROW -->
+  <div class="bottom-grid">
+
+    <!-- Result card -->
+    <div class="card result-card">
+      <div class="card-label">Analysis result</div>
+      <div id="resultBody">
+        <p class="empty-hint">Record a cough to see results.</p>
+      </div>
+    </div>
+
+    <!-- History -->
+    <div class="card">
+      <div class="card-label">Recent readings</div>
+      <ul class="history-list" id="historyList">
+        <li style="font-style:italic;color:var(--muted2);font-size:.875rem;padding:10px 0">
+          No readings yet — start listening first.
+        </li>
+      </ul>
+    </div>
+
+    <!-- System -->
+    <div class="card">
+      <div class="card-label">System</div>
+      <ul class="sys-list">
+        <li class="sys-item"><span class="sys-dot ok"></span> Microphone access</li>
+        <li class="sys-item"><span class="sys-dot ok"></span> Backend reachable</li>
+        <li class="sys-item"><span class="sys-dot ok"></span> ML model loaded</li>
+        <li class="sys-item">
+          <span class="sys-dot" id="sysDot"></span>
+          <span id="sysStatus">Not recording</span>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</main>
+
+<script src="{% static 'recorder.js' %}"></script>
+</body>
+</html>

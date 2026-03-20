@@ -1,0 +1,23 @@
+ 
+# Virtual environment
+venv/
+
+# Audio files
+*.wav
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Django
+*.sqlite3
+media/
+staticfiles/
+
+# Environment variables
+.env
+
+# OS
+Thumbs.db
+.DS_Store

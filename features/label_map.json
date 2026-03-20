@@ -1,0 +1,8 @@
+{
+    "bronchitis": 0,
+    "copd": 1,
+    "covid_like": 2,
+    "healthy": 3,
+    "other_resp": 4,
+    "pneumonia": 5
+}
