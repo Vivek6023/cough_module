@@ -1,6 +1,9 @@
+django
+djangorestframework
 numpy
 librosa
 soundfile
 pydub
 pandas
 scipy
+tensorflow
